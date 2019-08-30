@@ -73,7 +73,11 @@ dependencies {
         }); 
 	
 ```
-<br> 
+<br>
+    拼音显示 1.设置isShowPinyin为true（必设）
+             2.设置Page_LinePadding尽可能不低于50
+             3.设置Letter_Spacing字符间距（浮点数）取值区间[0-1.5]f
+<br>
 <br> 
 
 #### 如果你觉得还不错，欢迎start支持。
