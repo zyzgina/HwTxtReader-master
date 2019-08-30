@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -233,6 +234,9 @@ public class HwTxtPlayActivity extends AppCompatActivity {
 
     protected void loadFile() {
         TxtConfig.savePageSwitchDuration(this, 400);
+        TxtConfig.saveTextSize(this, (int) getResources().getDimension(R.dimen.hwtxtreader_ic_selector));
+        TxtConfig.saveTextColorPinyin(this, Color.parseColor("#a0a0a0"));
+        TxtConfig.Page_PaddingTop=100;
         if (ContentStr == null) {
             if (TextUtils.isEmpty(FilePath) || !(new File(FilePath).exists())) {
                 toast("文件不存在");

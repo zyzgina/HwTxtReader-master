@@ -11,12 +11,14 @@ public class PaintContext {
     public Paint selectTextPaint;
     public Paint sliderPaint;
     public Paint notePaint;
+    public Paint pinPaint;
 
     public PaintContext() {
         textPaint = new Paint();
         selectTextPaint = new Paint();
         notePaint = new Paint();
         sliderPaint = new Paint();
+        pinPaint = new Paint();
     }
 
     public void onDestroy(){
@@ -24,5 +26,6 @@ public class PaintContext {
         selectTextPaint =null;
         notePaint = null;
         sliderPaint =null;
+        pinPaint =null;
     }
 }

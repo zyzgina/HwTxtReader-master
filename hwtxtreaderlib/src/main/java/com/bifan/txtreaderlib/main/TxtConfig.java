@@ -13,6 +13,7 @@ public class TxtConfig {
     public static final String SAVE_NAME = "TxtConfig";
     public static final String C_TEXT_SIZE = "TEXT_SIZE ";
     public static final String C_TEXT_COLOR = "TEXT_COLOR";
+    public static final String C_NOTE_TEXT_COLOR_PINYIN = "TEXT_COLOR_PINYIN";
     public static final String C_NOTE_TEXT_COLOR = "TEXT_COLOR";
     public static final String C_SLIDER_COLOR = "SLIDER_COLOR";
     public static final String C_SELECT_TEXT_COLOR = "SELECTED_TEXT_COLOR";
@@ -27,24 +28,28 @@ public class TxtConfig {
     public static final String C_PAGE_VERTICAL_MODE = "PAGE_VERTICAL_MODE ";
     public static final String C_PAGE_SWITCH_STYPE_MODE = "PAGE_SWITCH_STYPE_MODE ";
 
-    public static  final int PAGE_SWITCH_MODE_COVER = 1;//in px
-    public static  final int PAGE_SWITCH_MODE_SERIAL = 2;//in px
-    public static  final int PAGE_SWITCH_MODE_SHEAR = 3;//in px
+    public static boolean isShowPinyin = false;//是否显示拼音
+    public static float Letter_Spacing = 0.0f;//字符间距
 
-    public static  int Page_PaddingLeft = 100;//in px
-    public static  int Page_PaddingBottom = 20;//in px
-    public static  int Page_PaddingTop = 20;//in px
-    public static  int Page_PaddingRight = 100;//in px
-    public static  int Page_LinePadding = 30;//in px
-    public static  int Page_Paragraph_margin = 20;//in px,为0，没有间距
+    public static final int PAGE_SWITCH_MODE_COVER = 1;//in px
+    public static final int PAGE_SWITCH_MODE_SERIAL = 2;//in px
+    public static final int PAGE_SWITCH_MODE_SHEAR = 3;//in px
 
-    public   int Page_Switch_Mode = PAGE_SWITCH_MODE_COVER;
-    public static  int MAX_TEXT_SIZE = 150;//in px
-    public static  int MIN_TEXT_SIZE = 30;//in px
-    public static  int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
-    public static  int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
+    public static int Page_PaddingLeft = 20;//in px
+    public static int Page_PaddingBottom = 20;//in px
+    public static int Page_PaddingTop = 20;//in px
+    public static int Page_PaddingRight = 20;//in px
+    public static int Page_LinePadding = 30;//in px
+    public static int Page_Paragraph_margin = 20;//in px,为0，没有间距
+
+    public int Page_Switch_Mode = PAGE_SWITCH_MODE_COVER;
+    public static int MAX_TEXT_SIZE = 150;//in px
+    public static int MIN_TEXT_SIZE = 30;//in px
+    public static int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
+    public static int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
 
     public int textSize = MIN_TEXT_SIZE;//字体大小
+    public int textColorPin = Color.BLACK;//拼音字体颜色
     public int textColor = Color.BLACK;//字体颜色
     public int backgroundColor = Color.WHITE;//背景颜色
     public int NoteColor = Color.RED;//笔记颜色
@@ -68,10 +73,10 @@ public class TxtConfig {
 
     public static int getPageSwitchMode(Context context) {
         SharedPreferences share = getS(context);
-        int PageSwitchMode =  share.getInt(C_PAGE_SWITCH_STYPE_MODE, PAGE_SWITCH_MODE_COVER);
-        if(PageSwitchMode!=PAGE_SWITCH_MODE_COVER
-                &&PageSwitchMode!= PAGE_SWITCH_MODE_SERIAL
-                &&PageSwitchMode!= PAGE_SWITCH_MODE_SHEAR){
+        int PageSwitchMode = share.getInt(C_PAGE_SWITCH_STYPE_MODE, PAGE_SWITCH_MODE_COVER);
+        if (PageSwitchMode != PAGE_SWITCH_MODE_COVER
+                && PageSwitchMode != PAGE_SWITCH_MODE_SERIAL
+                && PageSwitchMode != PAGE_SWITCH_MODE_SHEAR) {
             return PAGE_SWITCH_MODE_COVER;
         }
         return PageSwitchMode;
@@ -81,7 +86,7 @@ public class TxtConfig {
      * @param context
      * @param PageSwitchMode PAGE_SWITCH_MODE_COVER、PAGE_SWITCH_MODE_SERIAL、PAGE_SWITCH__MODE_SHEAR
      */
-    public static void savePageSwitchMode(Context context,int PageSwitchMode) {
+    public static void savePageSwitchMode(Context context, int PageSwitchMode) {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_PAGE_SWITCH_STYPE_MODE, PageSwitchMode);
@@ -127,10 +132,21 @@ public class TxtConfig {
         editor.apply();
         editor.commit();
     }
+    public static void saveTextColorPinyin(Context context, int textColor) {
+        SharedPreferences share = getS(context);
+        SharedPreferences.Editor editor = share.edit();
+        editor.putInt(C_NOTE_TEXT_COLOR_PINYIN, textColor);
+        editor.apply();
+        editor.commit();
+    }
 
     public static int getTextColor(Context context) {
         SharedPreferences share = getS(context);
         return share.getInt(C_TEXT_COLOR, Color.BLACK);
+    }
+    public static int getTextColorPinyin(Context context) {
+        SharedPreferences share = getS(context);
+        return share.getInt(C_NOTE_TEXT_COLOR_PINYIN, Color.BLACK);
     }
 
     public static void saveNoteTextColor(Context context, int textColor) {
@@ -232,7 +248,6 @@ public class TxtConfig {
         editor.apply();
         editor.commit();
     }
-
 
 
     public static Boolean isSwitchByTranslate(Context context) {

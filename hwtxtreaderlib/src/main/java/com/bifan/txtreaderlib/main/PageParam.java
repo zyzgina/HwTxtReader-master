@@ -6,8 +6,8 @@ package com.bifan.txtreaderlib.main;
 */
 public class PageParam {
     public int PaddingLeft = 20;
-    public int PaddingBottom = 200;
-    public int PaddingTop = 200;
+    public int PaddingBottom = 20;
+    public int PaddingTop = 20;
     public int PaddingRight = 20;
     public int ParagraphMargin = 0;
     public int VerticalLinePadding = 30;//横行距
@@ -19,4 +19,5 @@ public class PageParam {
     public float TextPadding = 5;
     public int PageWidth = 0;
     public int PageHeight = 0;
+    public boolean isPinyin=false;//是否显示拼音
 }

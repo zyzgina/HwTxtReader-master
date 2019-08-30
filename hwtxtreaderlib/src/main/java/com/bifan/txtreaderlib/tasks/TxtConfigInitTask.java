@@ -1,6 +1,11 @@
 package com.bifan.txtreaderlib.tasks;
 
+import android.annotation.SuppressLint;
 import android.graphics.Paint;
+import android.os.Build;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.util.Log;
 
 import com.bifan.txtreaderlib.interfaces.ILoadListener;
 import com.bifan.txtreaderlib.interfaces.ITxtTask;
@@ -65,6 +70,7 @@ public class TxtConfigInitTask implements ITxtTask {
         config.showNote = TxtConfig.getIsShowNote(readerContext.context);
         config.canPressSelect = TxtConfig.getCanPressSelect(readerContext.context);
         config.textColor = TxtConfig.getTextColor(readerContext.context);
+        config.textColorPin = TxtConfig.getTextColorPinyin(readerContext.context);
         config.textSize = TxtConfig.getTextSize(readerContext.context);
         config.backgroundColor = TxtConfig.getBackgroundColor(readerContext.context);
         config.NoteColor = TxtConfig.getNoteTextColor(readerContext.context);
@@ -98,11 +104,17 @@ public class TxtConfigInitTask implements ITxtTask {
         paintContext.sliderPaint.setColor(txtConfig.SliderColor);
         paintContext.sliderPaint.setAntiAlias(true);
         paintContext.textPaint.setFakeBoldText(txtConfig.Bold);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            paintContext.textPaint.setLetterSpacing(txtConfig.Letter_Spacing);
+        }
+        paintContext.pinPaint.setTextSize(txtConfig.textSize / 2);
+        paintContext.pinPaint.setColor(txtConfig.textColorPin);
     }
 
     private void initPageParam(TxtReaderContext readerContext) {
         PageParam param = readerContext.getPageParam();
 
+        param.isPinyin = TxtConfig.isShowPinyin;
         param.PaddingLeft = TxtConfig.Page_PaddingLeft;
         param.LinePadding = TxtConfig.Page_LinePadding;
         param.PaddingRight = TxtConfig.Page_PaddingRight;
